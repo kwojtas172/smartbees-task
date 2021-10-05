@@ -8,7 +8,7 @@ export default function DataSection() {
                 <button className='form-section__btn'>Logowanie</button>
                 <label className='form-section__desc'>Masz już konto? Kliknij żeby się zalogować.</label>
                 
-                <label className='form-section__label'>
+                <label className='form-section__label form-section__label--wrapper-choose-field'>
                 <input className='form-section__input' type='checkbox' />
                     Stwórz nowe konto
                 </label>
@@ -17,7 +17,7 @@ export default function DataSection() {
                 <input className='form-section__input' placeholder='Potwierdź hasło'/>
                 <input className='form-section__input' placeholder='Imię'/>
                 <input className='form-section__input' placeholder='Nazwisko'/>
-                <select className='form-section__select'>
+                <select className='form-section__input form-section__select'>
                     <option className='form-section__option' value="Zagranica">Zagranica</option>
                     <option className='form-section__option' selected value="Polska">Polska</option>
                 </select>
@@ -27,7 +27,7 @@ export default function DataSection() {
                     <input className='form-section__input form-section__input--small' placeholder='Miasto' required/>
                 </label>
                 <input className='form-section__input' placeholder='Telefon'/>
-                <label className='form-section__label'>
+                <label className='form-section__label form-section__label--wrapper-choose-field'>
                     <input className='form-section__input' type='checkbox' />
                     Dostawa pod inny adres
                 </label>

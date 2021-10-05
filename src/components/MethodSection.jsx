@@ -14,19 +14,19 @@ export default function MethodSection() {
                     <input className='form-section__input' type='radio' value='inpost' name='Inpost' />
                     <img src={inpostIcon} alt='inpost-icon' className='form-section__img' />
                     <span>Paczkomaty 24/7</span>
-                    <span>10,99 zł</span>
+                    <span className='form-section__span-price'>10,99 zł</span>
                 </label>
                 <label className='form-section__label'>
                     <input className='form-section__input' type='radio' value='inpost' name='Inpost' />
                     <img src={dpdIcon} alt='dpd-icon' className='form-section__img' />
                     <span>Kurier DPD</span>
-                    <span>18,00 zł</span>
+                    <span className='form-section__span-price'>18,00 zł</span>
                 </label>
                 <label className='form-section__label'>
                     <input className='form-section__input' type='radio' value='inpost' name='Inpost' />
                     <img src={dpdIcon} alt='dpd-icon' className='form-section__img' />
                     <span>Kurier DPD pobranie</span>
-                    <span>22,00 zł</span>
+                    <span className='form-section__span-price'>22,00 zł</span>
                 </label>
             </fieldset>
             <fieldset className='form-section__col'>
