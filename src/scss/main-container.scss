@@ -7,11 +7,11 @@
 .form-section__col {
     display: flex;
     flex-direction: column;
+    margin: 2rem;
 }
 
 .form-section__name {
-    height: 3rem;
-    width: 25rem;
+    width: 27rem;
     line-height: 3rem;
     background-color: $title-bg-color;
     color: $light-color;
@@ -34,17 +34,24 @@
     margin-bottom: 1rem;
 }
 
+.form-section__btn--secondary {
+    color: $title-bg-color;
+    border: solid 0.25rem $title-bg-color;
+}
+
 .form-section__desc {
     text-align: center;
 }
 
 .form-section__label {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     position: relative;
     max-width: 25rem;
     height: 2rem;
     margin-bottom: 2rem;
+    margin-top: 2rem;
 }
 
 .form-section__input {
@@ -73,4 +80,13 @@
         height: 1rem;
 
     }
+}
+
+.form-section__input--small {
+    max-width: 10.7rem;
+    margin-right: 1rem;
+}
+
+.form-section__img {
+    height: 3rem;
 }

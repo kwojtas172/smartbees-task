@@ -22,9 +22,9 @@ export default function DataSection() {
                     <option className='form-section__option' selected value="Polska">Polska</option>
                 </select>
                 <input className='form-section__input' placeholder='Adres'/>
-                <label>
-                    <input className='form-section__input'/>
-                    <input className='form-section__input'/>
+                <label className='form-section__label'>
+                    <input className='form-section__input form-section__input--small' placeholder='Kod pocztowy'/>
+                    <input className='form-section__input form-section__input--small' placeholder='Miasto' required/>
                 </label>
                 <input className='form-section__input' placeholder='Telefon'/>
                 <label className='form-section__label'>
