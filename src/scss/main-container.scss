@@ -61,6 +61,23 @@
     
 }
 
+.modal-login {
+    display: flex;
+    flex-direction: column;
+    min-width: 15rem;
+    z-index: 2;
+    position: absolute;
+    top: 5rem;
+    background-color: $light-color;
+    padding: 2rem;
+    border: 0.15rem solid $title-bg-color;
+}
+
+.modal-login__title {
+    color: $title-bg-color;
+    margin-bottom: 1rem;
+}
+
 .form-section__btn--primary {
     height: 7rem;
     background-color: $marker-color;
@@ -70,6 +87,13 @@
 .form-section__btn--secondary {
     color: $title-bg-color;
     border: solid 0.25rem $title-bg-color;
+}
+
+.modal-login__btn {
+    width: 5rem;
+    border: 0.15rem solid $title-bg-color;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .form-section__desc {
@@ -94,6 +118,7 @@
 }
 
 .form-section__label--wrapper-choose-field {
+    padding: 0 2rem;
     &::before {
             opacity: 1;
             z-index: 1;
@@ -112,6 +137,47 @@
             box-sizing: border-box;
             padding-left: 0.25rem;
           }
+}
+
+.form-section__label--wrapper-radio-field {
+    padding: 0 2rem;
+    &::before {
+            opacity: 1;
+            z-index: 1;
+            position: absolute;
+            display: block;
+            content: '';
+            background-color: $marker-color;
+            border: 0.6rem solid $light-color;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.5rem;
+            left: 0;
+            width: 1.9rem;
+            height: 1.9rem;
+            line-height: 2rem;
+            box-sizing: border-box;
+            padding-left: 0.75rem;
+    }
+
+    &::after {
+            opacity: 1;
+            z-index: 1;
+            position: absolute;
+            display: block;
+            content: '';
+            background-color: transparent;
+            border: 0.1rem solid $title-bg-color;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.5rem;
+            left: 0;
+            width: 2rem;
+            height: 2rem;
+            line-height: 2rem;
+            box-sizing: border-box;
+            padding-left: 0.25rem;
+    }
 }
 
 .form-section__input {
@@ -142,7 +208,8 @@
         height: 2rem;
         margin: 0 0.5rem 0 0;
         max-width: 2rem;
-        position: relative;
+        position: absolute;
+        left: 0;
         cursor: pointer;
         z-index: 1;
 
@@ -154,6 +221,13 @@
     &[type=radio] {
         margin: 0 0.5rem 0 0;
         max-width: 2rem;
+        z-index: 1;
+        position: absolute;
+        left: 0;
+
+        &:checked {
+            opacity: 0;
+        }
     }
 }
 
@@ -181,6 +255,7 @@
 .form-section__img {
     height: 2rem;
     margin: 0;
+    margin-left: 1rem;
 }
 
 .form-section__span-price {
@@ -289,4 +364,11 @@
     text-decoration: none;
     color: $link-color;
     margin: 0 0.25rem;
+}
+
+.modal_wrong-info {
+    color: $marker-color;
+    max-width: 25rem;
+    text-align: center;
+    margin-bottom: 1rem;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import imgItem from '../images/image.svg';
 
-export default function SummarySection({cart, deliveryPrice}) {
+export default function SummarySection({cart, deliveryPrice, userData}) {
 
     const [reduce, setReduce] = React.useState(0);
     const [totalPrice, setTotalPrice] = React.useState(0)
@@ -10,6 +10,7 @@ export default function SummarySection({cart, deliveryPrice}) {
         setReduce(cart?.reduce((prev, curr) => {
             return prev+curr.price*curr.quantity
         }, 0));
+        if(isNaN(deliveryPrice)) setTotalPrice(reduce)
         setTotalPrice(reduce + deliveryPrice)
     }, [cart, reduce, deliveryPrice])
 
@@ -54,7 +55,17 @@ export default function SummarySection({cart, deliveryPrice}) {
                 <input className='form-section__input' type='checkbox' />
                     Zapoznałam/em się z <a href="#null" className='form-section__link'>Regulaminem</a> zakupów
                 </label>
-                <button className='form-section__btn form-section__btn--primary'>POTWIERDŹ ZAKUP</button>
+                {(!userData.emailValidate || !userData.nameValidate || !userData.surnameValidate || !userData.addressValidate || !userData.postalCodeValidate || !userData.cityValidate || !userData.phoneNumberValidate) ? <div className='modal_wrong-info'>
+                <span>Popraw dane!</span>
+                {!userData.emailValidate ? <span>Wpisz poprawny e-mail.</span>: null}
+                {!userData.nameValidate ? <span>Wpisz imię składające się tylko z liter (pierwsza litera musi być duża).</span>: null}
+                {!userData.surnameValidate ? <span>Wpisz nazwisko składające się tylko z liter (pierwsza litera musi być duża).</span>: null}
+                {!userData.addressValidate ? <span>Wpisz poprawny adres (zacznij dużą literą).</span>: null}
+                {!userData.postalCodeValidate ? <span>Wpisz poprawny kod pocztowy (cyfry w formacie XX-XXX).</span>: null}
+                {!userData.cityValidate ? <span>Wpisz poprawną nazwę miasta (tylko litery, pierwsza musi być duża).</span>: null}
+                {!userData.phoneNumberValidate ? <span>Wpisz poprawny numer telefonu (9 cyfr).</span>: null}
+                </div> : null}
+                <button className='form-section__btn form-section__btn--primary' type='submit'>POTWIERDŹ ZAKUP</button>
             </fieldset>
         </section>
     )
