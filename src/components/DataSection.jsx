@@ -12,6 +12,7 @@ export default function DataSection() {
                 <input className='form-section__input' type='checkbox' />
                     Stwórz nowe konto
                 </label>
+                <input className='form-section__input' placeholder='E-mail'/>
                 <input className='form-section__input' placeholder='Nazwa użytkownika'/>
                 <input className='form-section__input' placeholder='Hasło'/>
                 <input className='form-section__input' placeholder='Potwierdź hasło'/>

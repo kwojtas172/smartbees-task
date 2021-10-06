@@ -6,14 +6,18 @@ import SummarySection from './SummarySection';
 export default function MainContainer() {
 
 
-    const [cart, setCart] = React.useState([
-        {
-            name: 'Produkt testowy nr 1',
-            price: 115,
-            quantity: 1,
-            image: null
-        }
-    ])
+    const [cart, setCart] = React.useState(null);
+    const [deliveryMethod, setDeliveryMethod] = React.useState('');
+    const [paymentMethod, setPaymentMethod] = React.useState('');
+    const [deliveryPrice, setDeliveryPrice] = React.useState(null)
+
+
+    React.useEffect(() => {
+        const path = document.location.pathname.slice(1) || 1;
+        fetch(`http://localhost:3000/${path}`)
+        .then(response => response.json())
+        .then(data => setCart(data));
+    }, [])
 
 
 
@@ -21,8 +25,8 @@ export default function MainContainer() {
         <main className='main'>
             <form className="form">
                 <DataSection />
-                <MethodSection />
-                <SummarySection cart={cart} />
+                <MethodSection setDeliveryMethod={setDeliveryMethod} setPaymentMethod={setPaymentMethod} setDeliveryPrice={setDeliveryPrice} />
+                <SummarySection  cart={cart ? cart[0].products : null} deliveryPrice={deliveryPrice ? deliveryPrice : null}/>
             </form>
         </main>
     )
