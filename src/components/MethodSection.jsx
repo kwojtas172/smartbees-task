@@ -5,7 +5,7 @@ import payuIcon from '../images/payU.svg';
 import cashIcon from '../images/wallet.svg';
 import bankIcon from '../images/bank.svg';
 
-export default function MethodSection({setDeliveryMethod, setPaymentMethod, setDeliveryPrice}) {
+export default function MethodSection({setDeliveryMethod, setPaymentMethod, setDeliveryPrice, discountCode, setDiscountCode, handleSendDiscountCode, discountCodeInfo}) {
 
     const [inputIsChecked, setInputIchChecked] = React.useState(
         {
@@ -13,7 +13,13 @@ export default function MethodSection({setDeliveryMethod, setPaymentMethod, setD
             dpd: false,
             dpdCash: false
         }
-    )
+    );
+    const [isShowInputsToDiscount, setIsShowInputsToDiscount] = React.useState(false);
+
+    const handleShowDiscount = e => {
+        e.preventDefault();
+        setIsShowInputsToDiscount(!isShowInputsToDiscount)
+    }
 
     const lockInputRadio = e => {
         const copyInputIsChecked = {
@@ -71,7 +77,17 @@ export default function MethodSection({setDeliveryMethod, setPaymentMethod, setD
                     <img src={bankIcon} alt='bank-icon' className='form-section__img' />
                     <span>Przelew bankowy - zwykły</span>
                 </label> : null}
-                <button className='form-section__btn form-section__btn--secondary'>Dodaj kod rabatowy</button>
+                <button className='form-section__btn form-section__btn--secondary' onClick={e => handleShowDiscount(e)} >Dodaj kod rabatowy</button>
+                {isShowInputsToDiscount ? <div>
+                    <input className='form-section__input' type='text' placeholder='Kod kuponu rabatowego' value={discountCode} onChange={e => setDiscountCode(e.target.value)}/>
+                    <label className='form-section__label '>
+                    <button className='modal-login__btn' onClick={e => handleSendDiscountCode(e)}>Zastosuj</button>
+                    <button className=' modal-login__btn' onClick={e => handleShowDiscount(e)} >Anuluj</button>
+                    {discountCodeInfo ? <div className='modal_wrong-info'>
+                        {discountCodeInfo}
+                    </div> : null}
+                    </label>
+                </div> : null}
             </fieldset>
         </section>
     )

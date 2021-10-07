@@ -19,6 +19,8 @@ export default function MainContainer() {
     const [isLogin, setIsLogin] = React.useState(false);
     const [login, setLogin] = React.useState({username: '', password: ''});
     const [isBadLogin, setIsBadLogin] = React.useState(null);
+    const [discountCode, setDiscountCode] = React.useState('');
+    const [discountCodeInfo, setDiscountCodeInfo] = React.useState('');
 
     const validateFormAndSend = e => {
         e.preventDefault();
@@ -71,6 +73,34 @@ export default function MainContainer() {
         } else setIsBadLogin('Uzupełnij pola - login i hasło powinny zawierać co najmniej 3 znaki.')
     }
 
+    const handleSendDiscountCode = e => {
+        e.preventDefault();
+        if(discountCode.length > 0) {
+            console.log('działa');
+            setDiscountCodeInfo('');
+            const data = {code: discountCode};
+            fetch('http://localhost:3000/discounts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                  },
+                body: JSON.stringify(data)
+            })
+            .then(resposne => resposne.json())
+            .then(data => {
+                if(data.response === 'code not found or is not active') {
+                    setDiscountCodeInfo('Kod nieprawidłowy lub nieaktywny!')
+                } else {
+                    setDiscountCodeInfo('');
+                    setDiscountCode(Number(data.value));
+                }
+            })
+            .catch(err => console.log(err))
+        } else {
+            setDiscountCodeInfo('Wpisz kod!')
+        }
+    }
+
     React.useEffect(() => {
         const path = document.location.pathname.slice(1) || 1;
         fetch(`http://localhost:3000/${path}`)
@@ -85,8 +115,8 @@ export default function MainContainer() {
         <main className='main'>
             <form className="form" onSubmit={e => validateFormAndSend(e)}>
                 <DataSection userData={userData} setUserData={setUserData} setIsLogin={setIsLogin} isLogin={isLogin} toLoginUser={toLoginUser} login={login} setLogin={setLogin} isBadLogin={isBadLogin} />
-                <MethodSection setDeliveryMethod={setDeliveryMethod} setPaymentMethod={setPaymentMethod} setDeliveryPrice={setDeliveryPrice} />
-                <SummarySection  cart={cart ? cart[0].products : null} deliveryPrice={deliveryPrice ? deliveryPrice : null} userData={userData}/>
+                <MethodSection setDeliveryMethod={setDeliveryMethod} setPaymentMethod={setPaymentMethod} setDeliveryPrice={setDeliveryPrice} discountCode={discountCode} setDiscountCode={setDiscountCode} handleSendDiscountCode={handleSendDiscountCode} discountCodeInfo={discountCodeInfo}/>
+                <SummarySection  cart={cart ? cart[0].products : null} deliveryPrice={deliveryPrice ? deliveryPrice : null} userData={userData} discountCode={discountCode}/>
             </form>
         </main>
     )

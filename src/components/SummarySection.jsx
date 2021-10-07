@@ -1,18 +1,19 @@
 import React from 'react';
 import imgItem from '../images/image.svg';
 
-export default function SummarySection({cart, deliveryPrice, userData}) {
+export default function SummarySection({cart, deliveryPrice, userData, discountCode}) {
 
     const [reduce, setReduce] = React.useState(0);
-    const [totalPrice, setTotalPrice] = React.useState(0)
+    const [totalPrice, setTotalPrice] = React.useState(0);
 
     React.useEffect(() => {
         setReduce(cart?.reduce((prev, curr) => {
             return prev+curr.price*curr.quantity
         }, 0));
         if(isNaN(deliveryPrice)) setTotalPrice(reduce)
-        setTotalPrice(reduce + deliveryPrice)
-    }, [cart, reduce, deliveryPrice])
+        if(!(discountCode > 0)) setTotalPrice(reduce + deliveryPrice);
+        setTotalPrice((reduce + deliveryPrice) - (reduce + deliveryPrice)*discountCode/100)
+    }, [cart, reduce, deliveryPrice, discountCode])
 
     return (
         <section className='form-section'>
@@ -39,6 +40,10 @@ export default function SummarySection({cart, deliveryPrice, userData}) {
                     {deliveryPrice ? <div className='summary-reduced__desc'>
                         <p className='summary-reduced__text'>Dostawa</p>
                         <p className='summary-reduced__text'>{deliveryPrice?.toFixed(2).replace('.',',')} zł</p>
+                    </div> : null}
+                    {discountCode > 0 ? <div className='summary-reduced__desc'>
+                        <p className='summary-reduced__text'>Rabat</p>
+                        <p className='summary-reduced__text'>{(totalPrice*discountCode/100)?.toFixed(2).replace('.',',')} zł</p>
                     </div> : null}
                     <div className='summary-reduced__desc'>
                         <p className='summary-reduced__text summary-reduced__text--bold'>Łącznie</p>

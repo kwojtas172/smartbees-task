@@ -90,11 +90,13 @@
 }
 
 .modal-login__btn {
-    width: 5rem;
-    height: 2rem;
-    border: 0.15rem solid $title-bg-color;
-    background-color: transparent;
-    margin-bottom: 1rem;
+    width: 11rem;
+    height: 3rem;
+    color: $light-color;
+    border: 0.15rem solid $btn-alternative-color;
+    border-radius: 0.25rem;
+    background-color: $btn-alternative-color;
+    margin: 1rem;
     cursor: pointer;
 }
 
