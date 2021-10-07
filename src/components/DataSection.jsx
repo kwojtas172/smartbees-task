@@ -26,7 +26,7 @@ export default function DataSection({userData, setUserData, setIsLogin, isLogin,
                 
                 <label className='form-section__label form-section__label--wrapper-choose-field'>
                 <input onClick={() => setIsNewAccount(!isNewAccount)} className='form-section__input' type='checkbox' />
-                    Stwórz nowe konto
+                    <span className='span-checkbox'>Stwórz nowe konto</span>
                 </label>
                 <input className='form-section__input' placeholder='E-mail' value={userData.email} onChange={e => setUserData({...userData, email: e.target.value})}/>
                 { isNewAccount ? <input className='form-section__input' placeholder='Hasło'/> : null}
@@ -45,7 +45,7 @@ export default function DataSection({userData, setUserData, setIsLogin, isLogin,
                 <input className='form-section__input' placeholder='Telefon' value={userData.phoneNumber} onChange={e => setUserData({...userData, phoneNumber: e.target.value})}/>
                 <label className='form-section__label form-section__label--wrapper-choose-field'>
                     <input className='form-section__input' type='checkbox' />
-                    Dostawa pod inny adres
+                        <span className='span-checkbox'>Dostawa pod inny adres</span>
                 </label>
             </fieldset>
         </section>

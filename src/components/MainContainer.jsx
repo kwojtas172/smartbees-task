@@ -84,7 +84,7 @@ export default function MainContainer() {
         }
     }
 
-    //method to login (after success fetch some field from 1. section of form will be automatic fill)
+    //method to login (after success fetch some field from 1. section of form will be automatic fill) login: johndoe99, password: 123
     const toLoginUser = e => {
         e.preventDefault();
         console.log(login);

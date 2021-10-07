@@ -56,11 +56,11 @@ export default function SummarySection({cart, deliveryPrice, userData, discountC
                 <textarea className='form-section__input form-section__input--textarea' placeholder='Komentarz'/>
                 <label className='form-section__label form-section__label--wrapper-choose-field'>
                 <input className='form-section__input' type='checkbox' />
-                    Zapisz się, aby otrzymywać newsletter
+                    <span className='span-checkbox'>Zapisz się, aby otrzymywać newsletter</span>
                 </label>
                 <label className='form-section__label form-section__label--wrapper-choose-field'>
                 <input className='form-section__input' type='checkbox' onClick={() => setIsMarkedRules(isMarkedRules === 'checked' ? 'unchecked' : 'checked')} />
-                    Zapoznałam/em się z <a href="#null" className='form-section__link'>Regulaminem</a> zakupów
+                    <span className='span-checkbox'>Zapoznałam/em się z <a href="#null" className='form-section__link'>Regulaminem</a> zakupów</span>
                 </label>
                 {(!userData.emailValidate || !userData.nameValidate || !userData.surnameValidate || !userData.addressValidate || !userData.postalCodeValidate || !userData.cityValidate || !userData.phoneNumberValidate || !deliveryMethod || !paymentMethod || !isMarkedRules) ? <div className='modal_wrong-info'> {/* when some field is not validated to show this */}
                 <span>Popraw dane!</span>

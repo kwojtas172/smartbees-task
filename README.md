@@ -68,3 +68,10 @@ For test on local:
   GET /:id
 ```
 Available id: 1-5 (if put only path '/', server redirect to path: '/1').
+
+## Support
+
+For support, email kwojtas172@gmail.com or message me on [Linkedin](https://www.linkedin.com/in/kamil-wojtas/).
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
