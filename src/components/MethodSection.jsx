@@ -34,7 +34,7 @@ export default function MethodSection({setDeliveryMethod, setPaymentMethod, setD
         setInputIchChecked({...copyInputIsChecked, [e.target.value]: true});
         setDeliveryMethod(e.target.value);
         setDeliveryPrice(Number(e.target.dataset.price));
-        setPaymentMethod('');
+        setPaymentMethod(true);
     }
 
     return (
@@ -81,7 +81,7 @@ export default function MethodSection({setDeliveryMethod, setPaymentMethod, setD
                 {isShowInputsToDiscount ? <div>
                     <input className='form-section__input' type='text' placeholder='Kod kuponu rabatowego' value={discountCode} onChange={e => setDiscountCode(e.target.value)}/>
                     <label className='form-section__label '>
-                    <button className='modal-login__btn' onClick={e => handleSendDiscountCode(e)}>Zastosuj</button>
+                    <button className='modal-login__btn' onClick={e => { handleSendDiscountCode(e); setIsShowInputsToDiscount(!isShowInputsToDiscount)}}>Zastosuj</button>
                     <button className=' modal-login__btn' onClick={e => handleShowDiscount(e)} >Anuluj</button>
                     {discountCodeInfo ? <div className='modal_wrong-info'>
                         {discountCodeInfo}

@@ -39,7 +39,7 @@ export default function DataSection({userData, setUserData, setIsLogin, isLogin,
                 <input className='form-section__input' placeholder='Adres' value={userData.address} onChange={e => setUserData({...userData, address: e.target.value})}/>
                 <label className='form-section__label'>
                     <input className='form-section__input form-section__input--small' placeholder='Kod pocztowy' value={userData.postalCode} onChange={e => setUserData({...userData, postalCode: e.target.value})}/>
-                    <input className='form-section__input form-section__input--small' placeholder='Miasto' value={userData.city} onChange={e => setUserData({...userData, city: e.target.value})} required/>
+                    <input className='form-section__input form-section__input--small' placeholder='Miasto' value={userData.city} onChange={e => setUserData({...userData, city: e.target.value})}/>
                 </label>
                 <input className='form-section__input' placeholder='Telefon' value={userData.phoneNumber} onChange={e => setUserData({...userData, phoneNumber: e.target.value})}/>
                 <label className='form-section__label form-section__label--wrapper-choose-field'>

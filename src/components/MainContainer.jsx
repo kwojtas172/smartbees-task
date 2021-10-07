@@ -8,8 +8,8 @@ export default function MainContainer() {
 
 
     const [cart, setCart] = React.useState(null);
-    const [deliveryMethod, setDeliveryMethod] = React.useState('');
-    const [paymentMethod, setPaymentMethod] = React.useState('');
+    const [deliveryMethod, setDeliveryMethod] = React.useState(true);
+    const [paymentMethod, setPaymentMethod] = React.useState(true);
     const [deliveryPrice, setDeliveryPrice] = React.useState(null);
     const [userData, setUserData] = React.useState(
         {
@@ -19,8 +19,10 @@ export default function MainContainer() {
     const [isLogin, setIsLogin] = React.useState(false);
     const [login, setLogin] = React.useState({username: '', password: ''});
     const [isBadLogin, setIsBadLogin] = React.useState(null);
-    const [discountCode, setDiscountCode] = React.useState('');
+    const [discountCode, setDiscountCode] = React.useState(0);
     const [discountCodeInfo, setDiscountCodeInfo] = React.useState('');
+    const [isMarkedRules, setIsMarkedRules] = React.useState('unchecked');
+    const [orderSummary, setOrderSummary] = React.useState('');
 
     const validateFormAndSend = e => {
         e.preventDefault();
@@ -34,18 +36,47 @@ export default function MainContainer() {
             emailValidate: patternEmail.test(userData.email), nameValidate: patternText.test(userData.name), surnameValidate: patternText.test(userData.surname), addressValidate: patternAddress.test(userData.address), postalCodeValidate: patternPostalCode.test(userData.postalCode), cityValidate: patternText.test(userData.city), phoneNumberValidate: patternPhoneNumber.test(userData.phoneNumber)
         });
 
-        if(userData.emailValidate && userData.nameValidate && userData.surnameValidate && userData.addressValidate && userData.postalCodeValidate && userData.cityValidate && userData.postalCodeValidate) {
+        if(userData.emailValidate && userData.nameValidate && userData.surnameValidate && userData.addressValidate && userData.postalCodeValidate && userData.cityValidate && userData.phoneNumberValidate && typeof deliveryMethod === 'string' && typeof paymentMethod === 'string' && isMarkedRules === 'checked') {
 
-            // const data = {
+            const data = {
+                user: {
+                   name: userData.name,
+                   surname: userData.surname,
+                   email: userData.email,
+                   address: userData.address,
+                   phoneNumber: userData.phoneNumber,
+                   postalCode: userData.postalCode,
+                   city: userData.city 
+                },
+                order: {
+                    deliveryMethod, paymentMethod, deliveryPrice, discountCode, products: cart[0].products
+                }
+            };
 
-            // }
-            // fetch('http://localhost:3000/orders', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //       },
-            //     body: JSON.stringify(data)
-            // })
+            fetch('http://localhost:3000/orders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                  },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if(data.insertedId) {
+                    setOrderSummary(`Dziękujemy za złożenie zamówienia. Nr zamówienia to: ${data.insertedId}!`);
+
+                } else setOrderSummary('Ups, coś poszło nie tak, spróbuj ponownie.');
+            })
+            .catch(err => console.log(err))
+
+
+        } else {
+            if(typeof deliveryMethod !== 'string') setDeliveryMethod(false);
+            if(typeof paymentMethod !== 'string') setPaymentMethod(false);
+            if(isMarkedRules !== 'checked') setIsMarkedRules(false)
+
+
         }
     }
 
@@ -76,7 +107,6 @@ export default function MainContainer() {
     const handleSendDiscountCode = e => {
         e.preventDefault();
         if(discountCode.length > 0) {
-            console.log('działa');
             setDiscountCodeInfo('');
             const data = {code: discountCode};
             fetch('http://localhost:3000/discounts', {
@@ -116,7 +146,7 @@ export default function MainContainer() {
             <form className="form" onSubmit={e => validateFormAndSend(e)}>
                 <DataSection userData={userData} setUserData={setUserData} setIsLogin={setIsLogin} isLogin={isLogin} toLoginUser={toLoginUser} login={login} setLogin={setLogin} isBadLogin={isBadLogin} />
                 <MethodSection setDeliveryMethod={setDeliveryMethod} setPaymentMethod={setPaymentMethod} setDeliveryPrice={setDeliveryPrice} discountCode={discountCode} setDiscountCode={setDiscountCode} handleSendDiscountCode={handleSendDiscountCode} discountCodeInfo={discountCodeInfo}/>
-                <SummarySection  cart={cart ? cart[0].products : null} deliveryPrice={deliveryPrice ? deliveryPrice : null} userData={userData} discountCode={discountCode}/>
+                <SummarySection  cart={cart ? cart[0].products : null} deliveryPrice={deliveryPrice ? deliveryPrice : null} userData={userData} discountCode={discountCode} deliveryMethod={deliveryMethod} paymentMethod={paymentMethod} isMarkedRules={isMarkedRules} setIsMarkedRules={setIsMarkedRules} orderSummary={orderSummary}/>
             </form>
         </main>
     )
