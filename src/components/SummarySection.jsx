@@ -42,7 +42,7 @@ export default function SummarySection({cart, deliveryPrice, userData}) {
                     </div> : null}
                     <div className='summary-reduced__desc'>
                         <p className='summary-reduced__text summary-reduced__text--bold'>Łącznie</p>
-                        <p className='summary-reduced__text summary-reduced__text--bold'>{totalPrice?.toFixed(2).replace('.',',')} zł</p>
+                        <p className='summary-reduced__text summary-reduced__text--bold'>{isNaN(totalPrice) ? null : totalPrice?.toFixed(2).replace('.',',')} zł</p>
                     </div>
                     <p className='form-section__line'></p>
                 </div>
