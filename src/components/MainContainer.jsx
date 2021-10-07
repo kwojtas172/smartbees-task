@@ -4,26 +4,30 @@ import DataSection from './DataSection';
 import MethodSection from './MethodSection';
 import SummarySection from './SummarySection';
 
+
+const url = 'https://smartbees-api.herokuapp.com'; //url for fetch
+
 export default function MainContainer() {
 
 
-    const [cart, setCart] = React.useState(null);
-    const [deliveryMethod, setDeliveryMethod] = React.useState(true);
-    const [paymentMethod, setPaymentMethod] = React.useState(true);
-    const [deliveryPrice, setDeliveryPrice] = React.useState(null);
+    const [cart, setCart] = React.useState([{}]); //cart, default null, filled after fetch
+    const [deliveryMethod, setDeliveryMethod] = React.useState(true); //delivery method from 2. section of form
+    const [deliveryPrice, setDeliveryPrice] = React.useState(null); //delivery price from 2. section of form
+    const [paymentMethod, setPaymentMethod] = React.useState(true); //payment method from 3. section of form
     const [userData, setUserData] = React.useState(
         {
             email: '', name: '', surname: '', country: 'Polska', address: '', postalCode: '', city: '', phoneNumber: '', emailValidate: true, nameValidate: true, surnameValidate: true, addressValidate: true, postalCodeValidate: true, cityValidate: true, phoneNumberValidate: true
         }
-    );
-    const [isLogin, setIsLogin] = React.useState(false);
-    const [login, setLogin] = React.useState({username: '', password: ''});
-    const [isBadLogin, setIsBadLogin] = React.useState(null);
-    const [discountCode, setDiscountCode] = React.useState(0);
-    const [discountCodeInfo, setDiscountCodeInfo] = React.useState('');
-    const [isMarkedRules, setIsMarkedRules] = React.useState('unchecked');
-    const [orderSummary, setOrderSummary] = React.useState('');
+    ); //obj for dara user (fields from 1. section of form) - fields with suffix to use for validate form
+    const [isLogin, setIsLogin] = React.useState(false); //true shows login modal, false to hide login modal
+    const [login, setLogin] = React.useState({username: '', password: ''}); //obj for send to login
+    const [isBadLogin, setIsBadLogin] = React.useState(null); //hide or show wrong info for unsuccesfull login
+    const [discountCode, setDiscountCode] = React.useState(0); //filled after fetch from db - to use to calculate discount (eg. value 20 means 20% of discount)
+    const [discountCodeInfo, setDiscountCodeInfo] = React.useState(''); //hide or show wrong info for send diascount code (when a less character or code is inactive or not found)
+    const [isMarkedRules, setIsMarkedRules] = React.useState('unchecked'); //checked or unchecked - checkbox with read rules
+    const [orderSummary, setOrderSummary] = React.useState(''); //true to show succesfull sending form with order to API
 
+    //method to validate and sending complete form with order
     const validateFormAndSend = e => {
         e.preventDefault();
         const patternText = new RegExp('^[A-Z][a-z]{2,50}$');
@@ -49,11 +53,11 @@ export default function MainContainer() {
                    city: userData.city 
                 },
                 order: {
-                    deliveryMethod, paymentMethod, deliveryPrice, discountCode, products: cart[0].products
+                    deliveryMethod, paymentMethod, deliveryPrice, discountCode, products: cart[0].products ? cart[0].products : null
                 }
             };
 
-            fetch('http://localhost:3000/orders', {
+            fetch(`${url}/orders`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -80,11 +84,12 @@ export default function MainContainer() {
         }
     }
 
+    //method to login (after success fetch some field from 1. section of form will be automatic fill)
     const toLoginUser = e => {
         e.preventDefault();
         console.log(login);
         if(login.username.length > 2 && login.password.length > 2) {
-            fetch('http://localhost:3000/users', {
+            fetch(`${url}/users`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -104,12 +109,13 @@ export default function MainContainer() {
         } else setIsBadLogin('Uzupełnij pola - login i hasło powinny zawierać co najmniej 3 znaki.')
     }
 
+    //method for fetch discount after input
     const handleSendDiscountCode = e => {
         e.preventDefault();
         if(discountCode.length > 0) {
             setDiscountCodeInfo('');
             const data = {code: discountCode};
-            fetch('http://localhost:3000/discounts', {
+            fetch(`${url}/discounts`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -131,9 +137,10 @@ export default function MainContainer() {
         }
     }
 
+    //method is working after mounted component - fetch basic data (cart from /carts), '/' will redirect to '/1', possibile pathes: '/1' - '/5'
     React.useEffect(() => {
         const path = document.location.pathname.slice(1) || 1;
-        fetch(`http://localhost:3000/${path}`)
+        fetch(`${url}/${path}`)
         .then(response => response.json())
         .then(data => setCart(data))
         .catch(err => console.log(err))

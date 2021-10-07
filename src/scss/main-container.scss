@@ -392,16 +392,19 @@
     left: 0;
     right: 0;
     font-size: 3rem;
-    background-color: $light-color;
+    background-color: $title-bg-color;
     color: $marker-color;
+    border-radius: 0.25rem;
 }
 
 .modal-summary__btn {
     width: 30%;
     height: 4rem;
-    background-color: $light-color;
+    background-color: $title-bg-color;
     border: 0.15rem solid $marker-color;
     color: $marker-color;
     margin: 2rem;
     font-size: 2rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
 }

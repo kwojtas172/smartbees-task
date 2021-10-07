@@ -3,16 +3,18 @@ import imgItem from '../images/image.svg';
 
 export default function SummarySection({cart, deliveryPrice, userData, discountCode, deliveryMethod, paymentMethod, isMarkedRules, setIsMarkedRules, orderSummary}) {
 
-    const [reduce, setReduce] = React.useState(0);
-    const [totalPrice, setTotalPrice] = React.useState(0);
+    const [reduce, setReduce] = React.useState(0); //to calculate for each product from cart (from props)
+    const [totalPrice, setTotalPrice] = React.useState(0); //to sum for reduce with discount (optional) and with delivery
 
+
+    //method to calculate total price
     React.useEffect(() => {
         setReduce(cart?.reduce((prev, curr) => {
             return prev+curr.price*curr.quantity
         }, 0));
-        if(isNaN(deliveryPrice)) setTotalPrice(reduce)
-        if(!(discountCode > 0)) setTotalPrice(reduce + deliveryPrice);
-        setTotalPrice((reduce + deliveryPrice) - (reduce + deliveryPrice)*discountCode/100)
+        if(isNaN(deliveryPrice)) setTotalPrice(reduce) //waiting for choice delivery method
+        if(!(discountCode > 0)) setTotalPrice(reduce + deliveryPrice); //adding discount code, if 20, discount is 20%
+        setTotalPrice((reduce + deliveryPrice) - (reduce + deliveryPrice)*discountCode/100) //total
     }, [cart, reduce, deliveryPrice, discountCode])
 
     return (
@@ -60,7 +62,7 @@ export default function SummarySection({cart, deliveryPrice, userData, discountC
                 <input className='form-section__input' type='checkbox' onClick={() => setIsMarkedRules(isMarkedRules === 'checked' ? 'unchecked' : 'checked')} />
                     Zapoznałam/em się z <a href="#null" className='form-section__link'>Regulaminem</a> zakupów
                 </label>
-                {(!userData.emailValidate || !userData.nameValidate || !userData.surnameValidate || !userData.addressValidate || !userData.postalCodeValidate || !userData.cityValidate || !userData.phoneNumberValidate || !deliveryMethod || !paymentMethod || !isMarkedRules) ? <div className='modal_wrong-info'>
+                {(!userData.emailValidate || !userData.nameValidate || !userData.surnameValidate || !userData.addressValidate || !userData.postalCodeValidate || !userData.cityValidate || !userData.phoneNumberValidate || !deliveryMethod || !paymentMethod || !isMarkedRules) ? <div className='modal_wrong-info'> {/* when some field is not validated to show this */}
                 <span>Popraw dane!</span>
                 {!userData.emailValidate ? <span>Wpisz poprawny e-mail.</span>: null}
                 {!userData.nameValidate ? <span>Wpisz imię składające się tylko z liter (pierwsza litera musi być duża).</span>: null}
@@ -77,7 +79,7 @@ export default function SummarySection({cart, deliveryPrice, userData, discountC
             </fieldset>
             {orderSummary ? <div className='modal-summary'>
                 {orderSummary}
-                <button className='modal-summary__btn' onClick={() => {window.location.reload()}}>ok</button>
+                <button className='modal-summary__btn' onClick={() => {window.location.reload()}}>ok</button> {/* after confirmation sending form you can reload site */}
             </div> : null}
         </section>
     )

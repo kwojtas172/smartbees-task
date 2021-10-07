@@ -2,8 +2,9 @@ import React from 'react'
 
 export default function DataSection({userData, setUserData, setIsLogin, isLogin, toLoginUser, login, setLogin, isBadLogin}) {
 
-    const [isNewAccount, setIsNewAccount] = React.useState(false);
+    const [isNewAccount, setIsNewAccount] = React.useState(false); //if checked, shows additional fields (create password, confirm password)
 
+    //to off deafult form and to on method for login (from props)
     const handleLogin = e => {
         e.preventDefault();
         setIsLogin(!isLogin)
@@ -19,7 +20,7 @@ export default function DataSection({userData, setUserData, setIsLogin, isLogin,
                     <input className='form-section__input' type='text' value={login.username} onChange={e => setLogin({...login, username: e.target.value})} placeholder='Wpisz login'/>
                     <input className='form-section__input' type='password' value={login.password} onChange={e => setLogin({...login, password: e.target.value})} placeholder='Wpisz hasło'/>
                     <button className='form-section__btn--secondary modal-login__btn' onClick={e => toLoginUser(e)}>Ok</button>
-                    {isBadLogin ? <div className='modal_wrong-info'>{isBadLogin}</div> : null}
+                    {isBadLogin ? <div className='modal_wrong-info'>{isBadLogin}</div> : null} 
                 </div> : null}
                 <label className='form-section__desc'>Masz już konto? Kliknij żeby się zalogować.</label>
                 

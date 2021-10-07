@@ -13,14 +13,17 @@ export default function MethodSection({setDeliveryMethod, setPaymentMethod, setD
             dpd: false,
             dpdCash: false
         }
-    );
+    ); //state to use for method lockInputRadio
     const [isShowInputsToDiscount, setIsShowInputsToDiscount] = React.useState(false);
 
+
+    //method yo show/hide input for discount
     const handleShowDiscount = e => {
         e.preventDefault();
         setIsShowInputsToDiscount(!isShowInputsToDiscount)
     }
 
+    //method to lock / unlock radio inputs (eg. when choosen delivery by inpost possibile only online and traditional bank transfer, not cash on delivery)
     const lockInputRadio = e => {
         const copyInputIsChecked = {
             inpost: false,
