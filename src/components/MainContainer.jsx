@@ -30,8 +30,8 @@ export default function MainContainer() {
     //method to validate and sending complete form with order
     const validateFormAndSend = e => {
         e.preventDefault();
-        const patternText = new RegExp('^[A-Z][a-z]{2,50}$');
-        const patternAddress = new RegExp('^[A-Za-z0-9 \/]{2,99}$');
+        const patternText = new RegExp('^[A-Z][a-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]{2,50}$');
+        const patternAddress = new RegExp('^[A-Za-z0-9żźćńółęąśŻŹĆĄŚĘŁÓŃ \/]{2,99}$');
         const patternEmail = new RegExp('^[A-Za-z0-9._]{2,}@[a-z]{1,}[.][a-z]{1,}$');
         const patternPostalCode = new RegExp('^[0-9]{2}[-][0-9]{3}$');
         const patternPhoneNumber = new RegExp('^[0-9]{9}$');

@@ -4,7 +4,7 @@ Recruitment task form SMARTBEES
 
 ## General
 
-Task of creating a website view - online store module. The stage of placing order from existing cart. Made frontenf site and backend server.
+Task of creating a website view - online store module. The stage of placing order from existing cart. Made frontend site and backend server.
 
 [DEMO](https://smartbees-task.netlify.app/)
 
@@ -43,6 +43,9 @@ Must be checked one radio inputs of each group names (one of delivery name and o
 To validate used Regular Expression (RegExp).
 
 To sending data of forms used fetch.
+
+Login: johndoe99, password: 123
+
 
 ## Features
 
