@@ -18,6 +18,8 @@ Task of creating a website view - online store module. The stage of placing orde
 
 ## Installation
 
+You need installed **Node.js** - to download from [node.js](https://nodejs.dev/download/)
+
 It's available on external hosting ([demo](https://smartbees-task.netlify.app/)).
 
 If you want to test on local, you follow these instructions.
